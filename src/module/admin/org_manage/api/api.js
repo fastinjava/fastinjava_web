@@ -4,6 +4,14 @@ const qs = require('qs');
 export const listTree = (reload) => {
   return http.requestPost(`/api/fastinjava-application-base/org/tree`,reload)
 }
+
+export const list = (reload) => {
+  return http.requestPost(`/api/fastinjava-application-base/org/list`,reload)
+}
+export const update = (reload) => {
+  return http.requestPost(`/api/fastinjava-application-base/org/update`,reload)
+}
+
 export const album_saveOne = (reload) => {
   return http.requestPost(`/api/album_manage/album/saveOne`,reload)
 }

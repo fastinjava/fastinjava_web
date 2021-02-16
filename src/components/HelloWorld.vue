@@ -1,5 +1,7 @@
 <template>
-  <div class="hello"></div>
+  <div class="hello">
+    <h1>fastinjava porta</h1>
+  </div>
 </template>
 
 <script>
