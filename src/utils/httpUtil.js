@@ -23,7 +23,8 @@ axios.interceptors.response.use(
   response => {
     let success = response.data.success;
     if (!success) {
-      Message.error(response.data.msg)
+      Message.error(response.data.message);
+      console.log(response.data.message);
     }
     return response;
   },

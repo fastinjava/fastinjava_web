@@ -1,19 +1,17 @@
 import http from '@/utils/httpUtil'
 const qs = require('qs');
 
-export const listTree = (reload) => {
-  return http.requestPost(`/api/fastinjava-application-base/org/tree`,reload)
-}
+
 
 export const list = (reload) => {
-  return http.requestPost(`/api/fastinjava-application-base/org/list`,reload)
+  return http.requestPost(`/api/fastinjava-application-base/role/list`,reload)
 }
 export const update = (reload) => {
   return http.requestPost(`/api/fastinjava-application-base/org/update`,reload)
 }
 
 export const insert = (reload) => {
-  return http.requestPost(`/api/fastinjava-application-base/org/insert`,reload)
+  return http.requestPost(`/api/fastinjava-application-base/role/insert`,reload)
 }
 
 
