@@ -1,6 +1,6 @@
 <template>
   <el-row>
-    <el-row style="padding: 20px;">
+    <el-row >
       <h4>角色管理</h4>
     </el-row>
 
@@ -72,11 +72,6 @@
         :visible.sync="insertDialogVisible"
         width="70%"
       >
-
-        <el-card>
-          {{insertPojo}}
-        </el-card>
-
         <el-card>
           <el-cascader
             v-model="insertPojo.value"

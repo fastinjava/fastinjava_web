@@ -45,9 +45,10 @@
               </el-table-column>
               <el-table-column
                 label="资源类型"
+                :show-overflow-tooltip="true"
               >
                 <template slot-scope="scope">
-                  <el-button type="text" size="small">{{scope.row.appType ==='1'?'客户端':'服务端'}}</el-button>
+                  {{scope.row.appType ==='1'?'客户端':'服务端'}}
                 </template>
               </el-table-column>
               <!--<el-table-column-->
@@ -74,11 +75,10 @@
               <!--</el-table-column>-->
               <el-table-column
                 label="资源地址"
+                :show-overflow-tooltip="true"
               >
                 <template slot-scope="scope">
-                  <el-button type="text" size="small">
                     {{scope.row.appHttps ===0?'http://':'https://'}}{{scope.row.appHost}}:{{scope.row.appPort}}/{{scope.row.appContext}}
-                  </el-button>
                 </template>
               </el-table-column>
               <el-table-column
