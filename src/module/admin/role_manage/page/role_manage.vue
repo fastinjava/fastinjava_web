@@ -56,6 +56,17 @@
               prop="roleDesc"
               label="角色描述"
             >
+            </el-table-column> <el-table-column
+              prop="clientName"
+              label="所属客户端"
+            >
+            </el-table-column>
+            <el-table-column
+              label="操作"
+              width="100">
+              <template slot-scope="scope">
+                <el-button type="text" size="small" @click="roleMenusClick(scope.row)">菜单权限</el-button>
+              </template>
             </el-table-column>
           </el-table>
 
@@ -68,33 +79,68 @@
     <el-row class="dialogs">
 
       <el-dialog
+        title="角色菜单权限"
+        :visible.sync="roleMenusDialogVisible"
+        width="70%"
+        :before-close="handleRoleMenusDialogClose"
+        >
+        <div>
+          <el-tree
+            :data="menuTreeData"
+            show-checkbox
+            node-key="menuId"
+            ref="menuTree"
+            :check-strictly="true"
+            :default-expand-all="true"
+            :default-checked-keys="currentMenuIdList"
+            :props="defaultPropsMenu"
+            @check-change="handleCheckChange">
+          </el-tree>
+        </div>
+        <div>
+          <el-button @click="grantRoleMenus">确定</el-button>
+        </div>
+      </el-dialog>
+
+      <el-dialog
         title="新增角色"
         :visible.sync="insertDialogVisible"
         width="70%"
       >
-        <el-card>
-          <el-cascader
-            v-model="insertPojo.value"
-            :options="orgTreeData"
-            :props="{
-                      children: 'children',
-                      label: 'label',
-                      value: 'id', checkStrictly: true
-                  }"
-          ></el-cascader>
-        </el-card>
-
         <table>
           <tr>
             <td>角色名称</td>
             <td>角色编码</td>
             <td>角色描述</td>
+            <td>所属客户端</td>
+            <td>所属组织</td>
             <td>操作</td>
           </tr>
           <tr>
             <td><input v-model="insertPojo.roleName"></input></td>
             <td><input v-model="insertPojo.roleCode"></input></td>
             <td><input v-model="insertPojo.roleDesc"></input></td>
+            <td>
+              <el-select v-model="insertPojo.clientId" placeholder="请选择">
+                <el-option
+                  v-for="item in oauthList"
+                  :key="item.clientId"
+                  :label="item.clientname"
+                  :value="item.clientId">
+                </el-option>
+              </el-select>
+            </td>
+            <td>
+              <el-cascader
+                v-model="insertPojo.value"
+                :options="orgTreeData"
+                :props="{
+                      children: 'children',
+                      label: 'label',
+                      value: 'id', checkStrictly: true
+                  }"
+              ></el-cascader>
+            </td>
             <td>
               <button @click="insertClick">确定</button>
             </td>
@@ -111,11 +157,16 @@
 <script>
   import * as roleApi from '../api/api'
   import * as orgApi from '../../org_manage/api/api'
+  import * as oauthController from '../../oauth_manage/api/api'
+  import * as menuController from '../../menu_manage/api/api'
+  import * as api from "../../menu_manage/api/api";
 
   export default {
     name: "",
     data() {
       return {
+        currentMenuIdList:[],
+        roleMenusDialogVisible:false,
         tableLoading:false,
         insertPojo: {
           "roleCode": "",
@@ -124,6 +175,7 @@
           "orgId":'',
           value:[]
         },
+        oauthList:[],
         defaultProps: {
           children: 'children',
           label: 'label',
@@ -132,9 +184,71 @@
         insertDialogVisible: false,
         tableData: [],
         orgTreeData: [],
+        menuTreeData:[],
+        defaultPropsMenu:{
+          children: 'children',
+          label: 'menuName'
+        },
+        currentRole:{},
+
+        currentCheckMenus:[]
       }
     },
     methods: {
+      handleRoleMenusDialogClose(done){
+        this.currentRole.menuIdList= [];
+        this.currentRole = {};
+        this.currentMenuIdList = [];
+        done();
+      },
+      grantRoleMenus(){
+        // this.currentCheckMenus = [];
+        // this.currentCheckMenus.push(
+        //   {
+        //     menuName:data.menuName,
+        //     menuId:data.menuId,
+        //   }
+        // )
+        // console.log(this.$refs.menuTree.getCheckedKeys());
+        let menuIdList = [];
+        let roleIdList = [];
+        var checkedNodes = this.$refs.menuTree.getCheckedNodes();
+        for (let i = 0; i < checkedNodes.length; i++) {
+          menuIdList.push(checkedNodes[i]['menuId']);
+        }
+        roleIdList.push(this.currentRole.id)
+        console.log(menuIdList);
+        console.log(roleIdList);
+
+        roleApi.grantRoleMenus({
+          'roleIdList':roleIdList,
+          'menuIdList':menuIdList
+        }).then(res=>{
+          if (res.success)
+          {
+            this.$message.success(res.message)
+          }
+        })
+
+      },
+      handleCheckChange(data, checked, indeterminate) {
+        var checkedKeys = this.$refs.menuTree.getCheckedKeys();
+        checkedKeys.push(data.menuPid);
+        this.$refs.menuTree.setCheckedKeys(checkedKeys);
+        //
+        //
+      },
+      roleMenusClick(row){
+        roleApi.detail(row.id).then(res=>{
+          this.currentRole = res.data;
+          this.currentMenuIdList = res.data.menuIdList;
+        })
+        setTimeout(function () {
+          this.$message.info('请稍后两秒');
+        },200)
+        this.roleMenusDialogVisible = true;
+        this.listMenuTree({"menuPid": "0","clientId":row.clientId});
+      },
 
       insertClick() {
 
@@ -159,7 +273,11 @@
 
 
       },
-
+      listMenuTree(reload){
+        menuController.listMenuTree(reload).then(res=>{
+          this.menuTreeData = res.data;
+        });
+      },
       insert(reload) {
         roleApi.insert(reload).then(res => {
           this.$message.success(res.message);
@@ -183,10 +301,17 @@
           this.getTreeData(this.orgTreeData);
         })
       },
-
+      listAllOauthClient() {
+        oauthController.list({"pageable":false}).then(res=>{
+          if (res.success){
+            this.oauthList = res.data.list;
+          }
+        })
+      },
       init() {
         this.listTree();
-        this.list();
+        this.list({pageable: false});
+        this.listAllOauthClient();
       },
       getTreeData(data) {
         // 循环遍历json数据

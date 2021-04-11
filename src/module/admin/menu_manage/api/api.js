@@ -1,34 +1,32 @@
 import http from '@/utils/httpUtil'
 const qs = require('qs');
 
-// export const listTree = (reload) => {
-//   return http.requestPost(`/api/fastinjava-application-base/org/tree`,reload)
-// }
+export const listMenuTree = (reload) => {
+  return http.requestPost(`/api/fastinjava-application-base/menu/listTree`,reload)
+}
 
 export const list = (reload) => {
-  return http.requestPost(`/api/fastinjava-application-base/apiinfo/list`,reload)
+  return http.requestPost(`/api/fastinjava-application-base/menu/list`,reload)
 }
-
-export const listallApi = (appid) =>{
-  return http.requestQuickGet(`/api/fastinjava-application-base/v/vv/listallApi?appId=${appid}`);
-}
-
 // export const update = (reload) => {
 //   return http.requestPost(`/api/fastinjava-application-base/org/update`,reload)
 // }
 //
-export const insertSelective = (reload) => {
-  return http.requestPost(`/api/fastinjava-application-base/apiinfo/insertSelective`,reload)
+export const insertMenu = (reload) => {
+  return http.requestPost(`/api/fastinjava-application-base/menu/insert`,reload)
 }
 
 export const listAllApplication = (reload) => {
   return http.requestPost(`/api/fastinjava-application-base/app/list`,reload)
 }
+export const listAllOauthClient = (reload) => {
+  return http.requestPost(`/api/fastinjava-application-base/oauth/info/list`,reload)
+}
 
 //
-export const listAllApiBaseInfo = (reload) => {
-  return http.requestPost(`/api/fastinjava-application-base/v/vv/listApi`,reload)
-}
+// export const album_saveOne = (reload) => {
+//   return http.requestPost(`/api/album_manage/album/saveOne`,reload)
+// }
 // export const album_deleteOne = (albumId) => {
 //   return http.requestPost(`/api/album_manage/album/deleteOne/` + albumId,{})
 // }

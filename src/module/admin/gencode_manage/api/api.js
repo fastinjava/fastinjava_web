@@ -6,17 +6,14 @@ const qs = require('qs');
 // }
 
 export const list = (reload) => {
-  return http.requestPost(`/api/fastinjava-application-base/apiinfo/list`,reload)
+  return http.requestPost(`/api/fastinjava-application-base/genDsConf/list`,reload)
 }
-
-export const listallApi = (appid) =>{
-  return http.requestQuickGet(`/api/fastinjava-application-base/v/vv/listallApi?appId=${appid}`);
-}
-
 // export const update = (reload) => {
 //   return http.requestPost(`/api/fastinjava-application-base/org/update`,reload)
 // }
 //
+
+
 export const insertSelective = (reload) => {
   return http.requestPost(`/api/fastinjava-application-base/apiinfo/insertSelective`,reload)
 }
@@ -32,12 +29,19 @@ export const listAllApiBaseInfo = (reload) => {
 // export const album_deleteOne = (albumId) => {
 //   return http.requestPost(`/api/album_manage/album/deleteOne/` + albumId,{})
 // }
-// export const album_findOne = (albumId) => {
-//   return http.requestQuickGet(`/api/album_manage/album/findOne/` + albumId)
-// }
-// export const album_saveAlbumContent = (reload) => {
-//   return http.requestPost(`/api/album_manage/album/saveAlbumContent`,reload)
-// }
+export const getTablesByDsName = (dsName) => {
+  return http.requestQuickGet(`/api/fastinjava-application-base/genDsConf/getTablesByDsName?dsName=${dsName}`)
+}
+export const codeGenPreview = (reload) => {
+  return http.requestPost(`/api/fastinjava-application-base/genDsConf/preview`,reload)
+}
+
+export const generatorCodeV1 = (reload) => {
+  return http.requestPost(`/api/fastdevelopinjava-service-codegen/generator/generatorCodeV1`,reload)
+}
+
+
+
 //
 // export const album_chapterSaveOne = (reload) => {
 //   return http.requestPost(`/api/album_manage/chapter/saveOne`,reload)

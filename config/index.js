@@ -19,6 +19,37 @@ module.exports = {
         }
         //target: 'http://127.0.0.1:50201'
       },
+      '/api/fastinjava-application-auth/': {
+        target: 'http://localhost:60001/',
+        changeOrigin: true,//是否允许跨越
+        pathRewrite: {
+          '^/api': ''
+        }
+        //target: 'http://127.0.0.1:50201'
+      },
+      '/api/fastdevelopinjava-service-codegen/': {
+        target: 'http://localhost:50009/',
+        changeOrigin: true,//是否允许跨越
+        pathRewrite: {
+          '^/api': ''
+        }
+        //target: 'http://127.0.0.1:50201'
+      },
+      '/api/fastdevelopinjava-service-blog/': {
+        target: 'http://localhost:50011/',
+        changeOrigin: true,//是否允许跨越
+        pathRewrite: {
+          '^/api': ''
+        }
+        //target: 'http://127.0.0.1:50201'
+      },'/api/fastdevelopinjava-service-filesystem/': {
+        target: 'http://localhost:50010/',
+        changeOrigin: true,//是否允许跨越
+        pathRewrite: {
+          '^/api': ''
+        }
+        //target: 'http://127.0.0.1:50201'
+      },
     },
 
     // Various Dev Server settings
@@ -29,7 +60,7 @@ module.exports = {
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
 
-    
+
     /**
      * Source Maps
      */

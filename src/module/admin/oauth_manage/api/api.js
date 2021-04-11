@@ -1,17 +1,18 @@
 import http from '@/utils/httpUtil'
 const qs = require('qs');
 
-// export const listTree = (reload) => {
-//   return http.requestPost(`/api/fastinjava-application-base/org/tree`,reload)
-// }
-
 export const list = (reload) => {
-  return http.requestPost(`/api/fastinjava-application-base/apiinfo/list`,reload)
+  return http.requestPost(`/api/fastinjava-application-base/oauth/info/list`,reload)
 }
 
-export const listallApi = (appid) =>{
-  return http.requestQuickGet(`/api/fastinjava-application-base/v/vv/listallApi?appId=${appid}`);
+export const insert = (reload) => {
+  return http.requestPost(`/api/fastinjava-application-base/oauth/info/insert`,reload)
 }
+export const grantClientApi = (reload) => {
+  return http.requestPost(`/api/fastinjava-application-base/oauth/info/grantClientApi`,reload)
+}
+
+
 
 // export const update = (reload) => {
 //   return http.requestPost(`/api/fastinjava-application-base/org/update`,reload)

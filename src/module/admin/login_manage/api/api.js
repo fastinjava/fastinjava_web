@@ -5,14 +5,9 @@ const qs = require('qs');
 //   return http.requestPost(`/api/fastinjava-application-base/org/tree`,reload)
 // }
 
-export const list = (reload) => {
-  return http.requestPost(`/api/fastinjava-application-base/apiinfo/list`,reload)
+export const accessToken = (reload) => {
+  return http.requestPost(`/api/fastinjava-application-auth/v/auth/login`,reload)
 }
-
-export const listallApi = (appid) =>{
-  return http.requestQuickGet(`/api/fastinjava-application-base/v/vv/listallApi?appId=${appid}`);
-}
-
 // export const update = (reload) => {
 //   return http.requestPost(`/api/fastinjava-application-base/org/update`,reload)
 // }

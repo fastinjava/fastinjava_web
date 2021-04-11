@@ -21,10 +21,15 @@ axios.interceptors.request.use(function (config) {    // 这里的config包含�
 // http response 拦截器
 axios.interceptors.response.use(
   response => {
+    let res = response.data;
     let success = response.data.success;
     if (!success) {
-      Message.error(response.data.message);
-      console.log(response.data.message);
+      if (res.message){
+        Message.error(res.message);
+      }
+      if (res.msg){
+        Message.error(res.msg);
+      }
     }
     return response;
   },

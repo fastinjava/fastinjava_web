@@ -3,23 +3,17 @@ const qs = require('qs');
 
 
 
-export const list = (reload) => {
-  return http.requestPost(`/api/fastinjava-application-base/role/list`,reload)
+export const listUsers = (reload) => {
+  return http.requestPost(`/api/fastinjava-application-base/user/list`,reload)
 }
 export const update = (reload) => {
-  return http.requestPost(`/api/fastinjava-application-base/org/update`,reload)
+  return http.requestPost(`/api/fastinjava-application-base/user/update`,reload)
 }
 
 export const insert = (reload) => {
-  return http.requestPost(`/api/fastinjava-application-base/role/insert`,reload)
-}
-export const grantRoleMenus = (reload) => {
-  return http.requestPost(`/api/fastinjava-application-base/role/grantRoleMenus`,reload)
+  return http.requestPost(`/api/fastinjava-application-base/user/insert`,reload)
 }
 
-export const detail = (id) => {
-  return http.requestQuickGet(`/api/fastinjava-application-base/role/detail?id=${id}`)
-}
 
 export const album_saveOne = (reload) => {
   return http.requestPost(`/api/album_manage/album/saveOne`,reload)

@@ -10,9 +10,13 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "@kangc/v-md-editor": "^1.4.10",
+    "@smallwei/avue": "^2.8.2",
     "axios": "^0.16.2",
-    "element-ui": "^2.14.0",
+    "element-ui": "^2.15.1",
     "es6-promise": "^4.2.8",
+    "moment": "^2.29.1",
+    "qs": "^6.9.6",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },

@@ -14,10 +14,6 @@
       <el-col :span="17">
 
         <el-row>
-          {{ currentOperatorObj }}
-        </el-row>
-
-        <el-row>
           <el-button type="primary" style="padding: 10px" @click="insertClick">新增</el-button>
         </el-row>
 
